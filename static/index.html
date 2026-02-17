@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机票价格监控</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
+        .container{background:white;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:500px;width:100%;padding:30px}
+        h1{font-size:24px;margin-bottom:8px;color:#333;text-align:center}
+        .subtitle{text-align:center;color:#666;font-size:14px;margin-bottom:25px}
+        .form-group{margin-bottom:18px}
+        label{display:block;margin-bottom:6px;font-weight:600;font-size:14px;color:#333}
+        select,input{width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;font-size:16px}
+        select:focus,input:focus{outline:none;border-color:#667eea}
+        .row{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+        button{width:100%;padding:14px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;margin-top:10px}
+        button:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(102,126,234,0.4)}
+        .features{background:#f8f9fa;padding:20px;border-radius:10px;margin-top:25px}
+        .features h3{font-size:13px;color:#666;margin-bottom:10px}
+        .features ul{list-style:none;font-size:12px;color:#888}
+        .features li{padding:4px 0}
+        .features li::before{content:"✓";color:#667eea;font-weight:bold;margin-right:6px}
+        .saved{background:#d4edda;color:#155724;padding:12px;border-radius:8px;margin-bottom:20px;display:none}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✈️ 机票价格监控</h1>
+        <p class="subtitle">实时监控未来票价，每日邮件提醒</p>
+        
+        <div id="savedMsg" class="saved">✅ 监控已保存！请返回 Telegram 查收每日通知</div>
+        
+        <form id="monitorForm">
+            <div class="form-group">
+                <label>出发地</label>
+                <select id="from" required>
+                    <option value="">选择出发城市</option>
+                    <option value="AKL">🇳🇿 奥克兰 (AKL)</option>
+                    <option value="SYD">🇦🇺 悉尼 (SYD)</option>
+                    <option value="PEK">🇨🇳 北京 (PEK)</option>
+                    <option value="PVG">🇨🇳 上海 (PVG)</option>
+                    <option value="CAN">🇨🇳 广州 (CAN)</option>
+                    <option value="TSN">🇨🇳 天津 (TSN)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>目的地</label>
+                <select id="to" required>
+                    <option value="">选择目的地</option>
+                    <option value="PEK">🇨🇳 北京 (PEK)</option>
+                    <option value="PVG">🇨🇳 上海 (PVG)</option>
+                    <option value="CAN">🇨🇳 广州 (CAN)</option>
+                    <option value="TSN">🇨🇳 天津 (TSN)</option>
+                    <option value="AKL">🇳🇿 奥克兰 (AKL)</option>
+                </select>
+            </div>
+            
+            <div class="row">
+                <div class="form-group">
+                    <label>最少天数</label>
+                    <input type="number" id="daysMin" value="28" min="1" max="30">
+                </div>
+                <div class="form-group">
+                    <label>最多天数</label>
+                    <input type="number" id="daysMax" value="38" min="2" max="40">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>邮箱地址</label>
+                <input type="email" id="email" placeholder="your@email.com" required>
+            </div>
+            
+            <button type="submit">🚀 开始监控</button>
+        </form>
+        
+        <div class="features">
+            <h3>✨ 功能特点</h3>
+            <ul>
+                <li>实时价格监控</li>
+                <li>每日邮件提醒</li>
+                <li>多航线支持</li>
+                <li>灵活天数设置</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('monitorForm').addEventListener('submit',function(e){
+            e.preventDefault();
+            const data={
+                from:document.getElementById('from').value,
+                to:document.getElementById('to').value,
+                daysMin:document.getElementById('daysMin').value,
+                daysMax:document.getElementById('daysMax').value,
+                email:document.getElementById('email').value
+            };
+            if(data.daysMax-data.daysMin>10){alert('天数间隔不能超过10天！');return}
+            if(data.from===data.to){alert('出发地和目的地不能相同！');return}
+            // Save to localStorage (demo)
+            localStorage.setItem('flightMonitor',JSON.stringify(data));
+            document.getElementById('savedMsg').style.display='block';
+            // Send to Telegram
+            fetch('https://api.telegram.org/botTOKEN/sendMessage',{
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({chat_id:'610906120',text:'📝 新监控请求\n出发:'+data.from+'\n目的地:'+data.to+'\n天数:'+data.daysMin+'-'+data.daysMax+'\n邮箱:'+data.email})
+            });
+        });
+    </script>
+</body>
+</html>
