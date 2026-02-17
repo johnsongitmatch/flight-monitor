@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机票价格监控 - Flight Price Monitor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .features {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-top: 1px solid #eee;
+        }
+        
+        .features h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+        
+        .features ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .features li {
+            font-size: 12px;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .features li::before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .airport-list {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }
+        
+        .info-text {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✈️ 机票价格监控</h1>
+            <p>实时监控未来票价，每日邮件提醒</p>
+        </div>
+        
+        <form id="monitorForm" class="form-container">
+            <div class="form-group">
+                <label for="from">出发地</label>
+                <select id="from" name="from" required>
+                    <option value="">选择出发城市</option>
+                    <option value="AKL">🇳🇿 奥克兰 (AKL)</option>
+                    <option value="SYD">🇦🇺 悉尼 (SYD)</option>
+                    <option value="MEL">🇦🇺 墨尔本 (MEL)</option>
+                    <option value="BNE">🇦🇺 布里斯班 (BNE)</option>
+                    <option value="PER">🇦🇺 珀斯 (PER)</option>
+                    <option value="LAX">🇺🇸 洛杉矶 (LAX)</option>
+                    <option value="SFO">🇺🇸 旧金山 (SFO)</option>
+                    <option value="LHR">🇬🇧 伦敦 (LHR)</option>
+                    <option value="SIN">🇸🇬 新加坡 (SIN)</option>
+                    <option value="HKG">🇭🇰 香港 (HKG)</option>
+                    <option value="PEK">🇨🇳 北京 (PEK)</option>
+                    <option value="PVG">🇨🇳 上海浦东 (PVG)</option>
+                    <option value="SHA">🇨🇳 上海虹桥 (SHA)</option>
+                    <option value="CAN">🇨🇳 广州 (CAN)</option>
+                    <option value="TSN">🇨🇳 天津 (TSN)</option>
+                </select>
+                <div class="airport-list">支持全球主要城市机场</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="to">目的地</label>
+                <select id="to" name="to" required>
+                    <option value="">选择目的地城市</option>
+                    <option value="PEK">🇨🇳 北京 (PEK)</option>
+                    <option value="PVG">🇨🇳 上海浦东 (PVG)</option>
+                    <option value="SHA">🇨🇳 上海虹桥 (SHA)</option>
+                    <option value="CAN">🇨🇳 广州 (CAN)</option>
+                    <option value="TSN">🇨🇳 天津 (TSN)</option>
+                    <option value="SZX">🇨🇳 深圳 (SZX)</option>
+                    <option value="CTU">🇨🇳 成都 (CTU)</option>
+                    <option value="XMN">🇨🇳 厦门 (XMN)</option>
+                    <option value="HKG">🇭🇰 香港 (HKG)</option>
+                    <option value="SIN">🇸🇬 新加坡 (SIN)</option>
+                    <option value="AKL">🇳🇿 奥克兰 (AKL)</option>
+                    <option value="SYD">🇦🇺 悉尼 (SYD)</option>
+                </select>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="daysMin">最少天数</label>
+                    <input type="number" id="daysMin" name="daysMin" min="1" max="30" value="28" required>
+                    <div class="info-text">回国最少天数</div>
+                </div>
+                <div class="form-group">
+                    <label for="daysMax">最多天数</label>
+                    <input type="number" id="daysMax" name="daysMax" min="2" max="40" value="38" required>
+                    <div class="info-text">回国最多天数</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">邮箱地址</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                <div class="info-text">每日价格日报将发送到此邮箱</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="notifyTime">通知时间</label>
+                <select id="notifyTime" name="notifyTime">
+                    <option value="10">上午 10:00 (服务器时间)</option>
+                    <option value="4">上午 04:00 (服务器时间)</option>
+                    <option value="8">上午 08:00 (服务器时间)</option>
+                    <option value="14">下午 14:00 (服务器时间)</option>
+                    <option value="20">晚上 20:00 (服务器时间)</option>
+                </select>
+                <div class="info-text">服务器时间 (UTC+8 北京时间)</div>
+            </div>
+            
+            <button type="submit" class="submit-btn">🚀 开始监控</button>
+        </form>
+        
+        <div class="features">
+            <h3>✨ 功能特点</h3>
+            <ul>
+                <li>实时价格监控</li>
+                <li>每日邮件提醒</li>
+                <li>多航线支持</li>
+                <li>价格变化提醒</li>
+                <li>灵活天数设置</li>
+                <li>历史价格记录</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            ✈️ Flight Price Monitor © 2026
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('monitorForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Validation
+            const daysMin = parseInt(data.daysMin);
+            const daysMax = parseInt(data.daysMax);
+            
+            if (daysMax - daysMin > 10) {
+                alert('天数间隔不能超过10天！');
+                return;
+            }
+            
+            if (data.from === data.to) {
+                alert('出发地和目的地不能相同！');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/monitor', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('✅ 监控已设置！\n\n' +
+                        '出发地: ' + data.from + '\n' +
+                        '目的地: ' + data.to + '\n' +
+                        '行程天数: ' + data.daysMin + '-' + data.daysMax + '天\n' +
+                        '通知时间: 每天 ' + data.notifyTime + ':00\n' +
+                        '邮箱: ' + data.email + '\n\n' +
+                        '您将收到每日价格日报！');
+                    this.reset();
+                } else {
+                    alert('❌ 设置失败: ' + result.message);
+                }
+            } catch (error) {
+                alert('❌ 网络错误，请重试！');
+            }
+        });
+    </script>
+</body>
+</html>
