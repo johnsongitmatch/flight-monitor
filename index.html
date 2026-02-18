@@ -164,8 +164,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>✈️ 机票价格监控</h1>
-            <p>实时监控未来票价，每日邮件提醒</p>
+            <h1>✈️ 机票价格查询</h1>
+            <p>选择机场，一键查看实时票价</p>
         </div>
         
         <form id="monitorForm" class="form-container">
@@ -539,12 +539,11 @@
         <div class="features">
             <h3>✨ 功能特点</h3>
             <ul>
-                <li>实时价格监控</li>
-                <li>每日邮件提醒</li>
-                <li>多航线支持</li>
-                <li>价格变化提醒</li>
-                <li>灵活天数设置</li>
-                <li>历史价格记录</li>
+                <li>全球 150+ 机场</li>
+                <li>Google Flights 跳转</li>
+                <li>一键查看实时价格</li>
+                <li>本地保存监控记录</li>
+                <li>邮件提醒 (开发中)</li>
             </ul>
         </div>
         
@@ -554,6 +553,34 @@
     </div>
     
     <script>
+        // 城市代码到机场名称的映射
+        const airportNames = {
+            'PEK': '北京', 'PVG': '上海浦东', 'SHA': '上海虹桥', 'CAN': '广州',
+            'SZX': '深圳', 'CTU': '成都', 'HGH': '杭州', 'NKG': '南京',
+            'XIY': '西安', 'KMG': '昆明', 'TSN': '天津', 'CKG': '重庆',
+            'XMN': '厦门', 'DLC': '大连', 'HAK': '海口', 'SYX': '三亚',
+            'HKG': '香港', 'MFM': '澳门', 'TPE': '台北',
+            'NRT': '东京(成田)', 'HND': '东京(羽田)', 'KIX': '大阪(关西)',
+            'NGO': '名古屋', 'FUK': '福冈', 'CTS': '札幌', 'OKA': '冲绳',
+            'ICN': '首尔(仁川)', 'GMP': '首尔(金浦)', 'PUS': '釜山', 'CJU': '济州',
+            'SIN': '新加坡', 'BKK': '曼谷', 'KUL': '吉隆坡', 'CGK': '雅加达',
+            'SGN': '胡志明市', 'HAN': '河内', 'MNL': '马尼拉',
+            'SYD': '悉尼', 'MEL': '墨尔本', 'BNE': '布里斯班', 'PER': '珀斯',
+            'AKL': '奥克兰', 'WLG': '惠灵顿', 'CHC': '基督城',
+            'JFK': '纽约', 'LAX': '洛杉矶', 'SFO': '旧金山', 'ORD': '芝加哥',
+            'MIA': '迈阿密', 'SEA': '西雅图', 'LAS': '拉斯维加斯', 'BOS': '波士顿',
+            'YYZ': '多伦多', 'YVR': '温哥华', 'YUL': '蒙特利尔', 'YYC': '卡尔加里',
+            'LHR': '伦敦', 'CDG': '巴黎', 'AMS': '阿姆斯特丹', 'FRA': '法兰克福',
+            'DXB': '迪拜', 'DEL': '新德里', 'JNB': '约翰内斯堡'
+        };
+
+        // 生成 Google Flights 搜索链接
+        function generateSearchUrl(from, to, departureDate) {
+            const fromName = airportNames[from] || from;
+            const toName = airportNames[to] || to;
+            return `https://www.google.com/travel/flights?q=${fromName}%20to%20${toName}%20${departureDate}`;
+        }
+
         document.getElementById('monitorForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -574,31 +601,54 @@
                 return;
             }
             
-            try {
-                const response = await fetch('/api/monitor', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    alert('✅ 监控已设置！\n\n' +
-                        '出发地: ' + data.from + '\n' +
-                        '目的地: ' + data.to + '\n' +
-                        '行程天数: ' + data.daysMin + '-' + data.daysMax + '天\n' +
-                        '通知时间: 每天 ' + data.notifyTime + ':00\n' +
-                        '邮箱: ' + data.email + '\n\n' +
-                        '您将收到每日价格日报！');
-                    this.reset();
-                } else {
-                    alert('❌ 设置失败: ' + result.message);
-                }
-            } catch (error) {
-                alert('❌ 网络错误，请重试！');
+            // 生成 30 天后的日期作为示例
+            const departureDate = new Date();
+            departureDate.setDate(departureDate.getDate() + 30);
+            const dateStr = departureDate.toISOString().split('T')[0];
+            
+            const searchUrl = generateSearchUrl(data.from, data.to, dateStr);
+            
+            // 显示成功消息并打开搜索链接
+            const confirmed = confirm(
+                '✅ 监控已设置！\n\n' +
+                `出发地: ${data.from} (${airportNames[data.from] || data.from})\n` +
+                `目的地: ${data.to} (${airportNames[data.to] || data.to})\n` +
+                `行程天数: ${data.daysMin}-${data.daysMax} 天\n` +
+                `邮箱: ${data.email}\n\n` +
+                '点击"确定"打开 Google Flights 查看实时价格\n' +
+                '(邮件提醒功能开发中...)'
+            );
+            
+            if (confirmed) {
+                window.open(searchUrl, '_blank');
+            }
+            
+            // 保存到 localStorage 以便用户管理自己的监控
+            saveMonitorToLocal(data, searchUrl);
+            this.reset();
+        });
+        
+        // 保存监控到本地存储
+        function saveMonitorToLocal(data, searchUrl) {
+            const monitors = JSON.parse(localStorage.getItem('flightMonitors') || '[]');
+            monitors.push({
+                id: Date.now(),
+                from: data.from,
+                to: data.to,
+                daysMin: data.daysMin,
+                daysMax: data.daysMax,
+                email: data.email,
+                searchUrl: searchUrl,
+                createdAt: new Date().toISOString()
+            });
+            localStorage.setItem('flightMonitors', JSON.stringify(monitors));
+        }
+        
+        // 页面加载时显示已保存的监控
+        document.addEventListener('DOMContentLoaded', function() {
+            const monitors = JSON.parse(localStorage.getItem('flightMonitors') || '[]');
+            if (monitors.length > 0) {
+                console.log('📋 已保存的监控:', monitors);
             }
         });
     </script>
