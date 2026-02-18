@@ -172,42 +172,333 @@
             <div class="form-group">
                 <label for="from">出发地</label>
                 <select id="from" name="from" required>
-                    <option value="">选择出发城市</option>
-                    <option value="AKL">🇳🇿 奥克兰 (AKL)</option>
-                    <option value="SYD">🇦🇺 悉尼 (SYD)</option>
-                    <option value="MEL">🇦🇺 墨尔本 (MEL)</option>
-                    <option value="BNE">🇦🇺 布里斯班 (BNE)</option>
-                    <option value="PER">🇦🇺 珀斯 (PER)</option>
-                    <option value="LAX">🇺🇸 洛杉矶 (LAX)</option>
-                    <option value="SFO">🇺🇸 旧金山 (SFO)</option>
-                    <option value="LHR">🇬🇧 伦敦 (LHR)</option>
-                    <option value="SIN">🇸🇬 新加坡 (SIN)</option>
-                    <option value="HKG">🇭🇰 香港 (HKG)</option>
-                    <option value="PEK">🇨🇳 北京 (PEK)</option>
-                    <option value="PVG">🇨🇳 上海浦东 (PVG)</option>
-                    <option value="SHA">🇨🇳 上海虹桥 (SHA)</option>
-                    <option value="CAN">🇨🇳 广州 (CAN)</option>
-                    <option value="TSN">🇨🇳 天津 (TSN)</option>
+                    <option value="">选择出发机场</option>
+                    <optgroup label="🇨🇳 中国">
+                        <option value="PEK">PEK - 北京</option>
+                        <option value="PVG">PVG - 上海浦东</option>
+                        <option value="SHA">SHA - 上海虹桥</option>
+                        <option value="CAN">CAN - 广州</option>
+                        <option value="SZX">SZX - 深圳</option>
+                        <option value="CTU">CTU - 成都</option>
+                        <option value="HGH">HGH - 杭州</option>
+                        <option value="NKG">NKG - 南京</option>
+                        <option value="XIY">XIY - 西安</option>
+                        <option value="KMG">KMG - 昆明</option>
+                        <option value="TSN">TSN - 天津</option>
+                        <option value="CKG">CKG - 重庆</option>
+                        <option value="XMN">XMN - 厦门</option>
+                        <option value="DLC">DLC - 大连</option>
+                        <option value="HAK">HAK - 海口</option>
+                        <option value="SYX">SYX - 三亚</option>
+                    </optgroup>
+                    <optgroup label="🇭🇰 香港 / 🇲🇴 澳门">
+                        <option value="HKG">HKG - 香港</option>
+                        <option value="MFM">MFM - 澳门</option>
+                    </optgroup>
+                    <optgroup label="🇹🇼 台湾">
+                        <option value="TPE">TPE - 台北桃园</option>
+                    </optgroup>
+                    <optgroup label="🇯🇵 日本">
+                        <option value="NRT">NRT - 东京( 成田)</option>
+                        <option value="HND">HND - 东京( 羽田)</option>
+                        <option value="KIX">KIX - 大阪( 关西)</option>
+                        <option value="ITM">ITM - 大阪( 伊丹)</option>
+                        <option value="NGO">NGO - 名古屋</option>
+                        <option value="FUK">FUK - 福冈</option>
+                        <option value="CTS">CTS - 札幌( 新千岁)</option>
+                        <option value="OKA">OKA - 冲绳( 那霸)</option>
+                    </optgroup>
+                    <optgroup label="🇰🇷 韩国">
+                        <option value="ICN">ICN - 首尔( 仁川)</option>
+                        <option value="GMP">GMP - 首尔( 金浦)</option>
+                        <option value="PUS">PUS - 釜山</option>
+                        <option value="CJU">CJU - 济州</option>
+                    </optgroup>
+                    <optgroup label="🇸🇬 新加坡">
+                        <option value="SIN">SIN - 新加坡</option>
+                    </optgroup>
+                    <optgroup label="🇹🇭 泰国">
+                        <option value="BKK">BKK - 曼谷( 素万那普)</option>
+                    </optgroup>
+                    <optgroup label="🇲🇾 马来西亚">
+                        <option value="KUL">KUL - 吉隆坡</option>
+                    </optgroup>
+                    <optgroup label="🇮🇩 印尼">
+                        <option value="CGK">CGK - 雅加达</option>
+                    </optgroup>
+                    <optgroup label="🇻🇳 越南">
+                        <option value="SGN">SGN - 胡志明市</option>
+                        <option value="HAN">HAN - 河内</option>
+                    </optgroup>
+                    <optgroup label="🇵🇭 菲律宾">
+                        <option value="MNL">MNL - 马尼拉</option>
+                    </optgroup>
+                    <optgroup label="🇦🇺 澳大利亚">
+                        <option value="SYD">SYD - 悉尼</option>
+                        <option value="MEL">MEL - 墨尔本</option>
+                        <option value="BNE">BNE - 布里斯班</option>
+                        <option value="PER">PER - 珀斯</option>
+                        <option value="ADL">ADL - 阿德莱德</option>
+                    </optgroup>
+                    <optgroup label="🇳🇿 新西兰">
+                        <option value="AKL">AKL - 奥克兰</option>
+                        <option value="WLG">WLG - 惠灵顿</option>
+                        <option value="CHC">CHC - 基督城</option>
+                    </optgroup>
+                    <optgroup label="🇺🇸 美国">
+                        <option value="JFK">JFK - 纽约( 肯尼迪)</option>
+                        <option value="LAX">LAX - 洛杉矶</option>
+                        <option value="SFO">SFO - 旧金山</option>
+                        <option value="ORD">ORD - 芝加哥( 奥黑尔)</option>
+                        <option value="MIA">MIA - 迈阿密</option>
+                        <option value="SEA">SEA - 西雅图</option>
+                        <option value="LAS">LAS - 拉斯维加斯</option>
+                        <option value="BOS">BOS - 波士顿</option>
+                        <option value="ATL">ATL - 亚特兰大</option>
+                        <option value="DFW">DFW - 达拉斯</option>
+                        <option value="DEN">DEN - 丹佛</option>
+                        <option value="PHX">PHX - 凤凰城</option>
+                        <option value="IAH">IAH - 休斯顿</option>
+                        <option value="EWR">EWR - 纽瓦克</option>
+                        <option value="MSP">MSP - 明尼阿波利斯</option>
+                        <option value="DTW">DTW - 底特律</option>
+                        <option value="PHL">PHL - 费城</option>
+                        <option value="SLC">SLC - 盐湖城</option>
+                        <option value="SAN">SAN - 圣地亚哥</option>
+                        <option value="PDX">PDX - 波特兰</option>
+                        <option value="HNL">HNL - 火奴鲁鲁</option>
+                    </optgroup>
+                    <optgroup label="🇨🇦 加拿大">
+                        <option value="YYZ">YYZ - 多伦多</option>
+                        <option value="YVR">YVR - 温哥华</option>
+                        <option value="YUL">YUL - 蒙特利尔</option>
+                        <option value="YYC">YYC - 卡尔加里</option>
+                    </optgroup>
+                    <optgroup label="🇬🇧 英国">
+                        <option value="LHR">LHR - 伦敦( 希思罗)</option>
+                        <option value="LGW">LGW - 伦敦( 盖特威克)</option>
+                        <option value="STN">STN - 伦敦( 斯坦斯特德)</option>
+                        <option value="MAN">MAN - 曼彻斯特</option>
+                        <option value="EDI">EDI - 爱丁堡</option>
+                    </optgroup>
+                    <optgroup label="🇪🇺 欧洲">
+                        <option value="CDG">CDG - 巴黎( 戴高乐)</option>
+                        <option value="AMS">AMS - 阿姆斯特丹</option>
+                        <option value="FRA">FRA - 法兰克福</option>
+                        <option value="MUC">MUC - 慕尼黑</option>
+                        <option value="BER">BER - 柏林</option>
+                        <option value="ZRH">ZRH - 苏黎世</option>
+                        <option value="FCO">FCO - 罗马</option>
+                        <option value="MXP">MXP - 米兰( 马尔彭萨)</option>
+                        <option value="BCN">BCN - 巴塞罗那</option>
+                        <option value="MAD">MAD - 马德里</option>
+                        <option value="ARN">ARN - 斯德哥尔摩</option>
+                        <option value="OSL">OSL - 奥斯陆</option>
+                        <option value="CPH">CPH - 哥本哈根</option>
+                        <option value="HEL">HEL - 赫尔辛基</option>
+                        <option value="DUB">DUB - 都柏林</option>
+                        <option value="LIS">LIS - 里斯本</option>
+                        <option value="ATH">ATH - 雅典</option>
+                        <option value="VIE">VIE - 维也纳</option>
+                        <option value="PRG">PRG - 布拉格</option>
+                        <option value="WAW">WAW - 华沙</option>
+                        <option value="BUD">BUD - 布达佩斯</option>
+                    </optgroup>
+                    <optgroup label="🇦🇪 中东">
+                        <option value="DXB">DXB - 迪拜</option>
+                        <option value="AUH">AUH - 阿布扎比</option>
+                        <option value="DOH">DOH - 多哈</option>
+                        <option value="RUH">RUH - 利雅得</option>
+                        <option value="JED">JED - 吉达</option>
+                        <option value="TLV">TLV - 特拉维夫</option>
+                    </optgroup>
+                    <optgroup label="🇮🇳 印度">
+                        <option value="DEL">DEL - 新德里</option>
+                        <option value="BOM">BOM - 孟买</option>
+                        <option value="BLR">BLR - 班加罗尔</option>
+                        <option value="MAA">MAA - 金奈</option>
+                    </optgroup>
+                    <optgroup label="🇿🇦 非洲">
+                        <option value="JNB">JNB - 约翰内斯堡</option>
+                        <option value="CPT">CPT - 开普敦</option>
+                        <option value="CAI">CAI - 开罗</option>
+                        <option value="NBO">NBO - 内罗毕</option>
+                    </optgroup>
+                    <optgroup label="🇧🇷 南美">
+                        <option value="GRU">GRU - 圣保罗</option>
+                        <option value="GIG">GIG - 里约热内卢</option>
+                        <option value="EZE">EZE - 布宜诺斯艾利斯</option>
+                        <option value="SCL">SCL - 圣地亚哥</option>
+                        <option value="BOG">BOG - 波哥大</option>
+                        <option value="LIM">LIM - 利马</option>
+                    </optgroup>
                 </select>
-                <div class="airport-list">支持全球主要城市机场</div>
+                <div class="airport-list">全球 150+ 机场</div>
             </div>
             
             <div class="form-group">
                 <label for="to">目的地</label>
                 <select id="to" name="to" required>
-                    <option value="">选择目的地城市</option>
-                    <option value="PEK">🇨🇳 北京 (PEK)</option>
-                    <option value="PVG">🇨🇳 上海浦东 (PVG)</option>
-                    <option value="SHA">🇨🇳 上海虹桥 (SHA)</option>
-                    <option value="CAN">🇨🇳 广州 (CAN)</option>
-                    <option value="TSN">🇨🇳 天津 (TSN)</option>
-                    <option value="SZX">🇨🇳 深圳 (SZX)</option>
-                    <option value="CTU">🇨🇳 成都 (CTU)</option>
-                    <option value="XMN">🇨🇳 厦门 (XMN)</option>
-                    <option value="HKG">🇭🇰 香港 (HKG)</option>
-                    <option value="SIN">🇸🇬 新加坡 (SIN)</option>
-                    <option value="AKL">🇳🇿 奥克兰 (AKL)</option>
-                    <option value="SYD">🇦🇺 悉尼 (SYD)</option>
+                    <option value="">选择到达机场</option>
+                    <optgroup label="🇨🇳 中国">
+                        <option value="PEK">PEK - 北京</option>
+                        <option value="PVG">PVG - 上海浦东</option>
+                        <option value="SHA">SHA - 上海虹桥</option>
+                        <option value="CAN">CAN - 广州</option>
+                        <option value="SZX">SZX - 深圳</option>
+                        <option value="CTU">CTU - 成都</option>
+                        <option value="HGH">HGH - 杭州</option>
+                        <option value="NKG">NKG - 南京</option>
+                        <option value="XIY">XIY - 西安</option>
+                        <option value="KMG">KMG - 昆明</option>
+                        <option value="TSN" selected>TSN - 天津</option>
+                        <option value="CKG">CKG - 重庆</option>
+                        <option value="XMN">XMN - 厦门</option>
+                        <option value="DLC">DLC - 大连</option>
+                        <option value="HAK">HAK - 海口</option>
+                        <option value="SYX">SYX - 三亚</option>
+                    </optgroup>
+                    <optgroup label="🇭🇰 香港 / 🇲🇴 澳门">
+                        <option value="HKG">HKG - 香港</option>
+                        <option value="MFM">MFM - 澳门</option>
+                    </optgroup>
+                    <optgroup label="🇹🇼 台湾">
+                        <option value="TPE">TPE - 台北桃园</option>
+                    </optgroup>
+                    <optgroup label="🇯🇵 日本">
+                        <option value="NRT">NRT - 东京( 成田)</option>
+                        <option value="HND">HND - 东京( 羽田)</option>
+                        <option value="KIX">KIX - 大阪( 关西)</option>
+                        <option value="ITM">ITM - 大阪( 伊丹)</option>
+                        <option value="NGO">NGO - 名古屋</option>
+                        <option value="FUK">FUK - 福冈</option>
+                        <option value="CTS">CTS - 札幌( 新千岁)</option>
+                        <option value="OKA">OKA - 冲绳( 那霸)</option>
+                    </optgroup>
+                    <optgroup label="🇰🇷 韩国">
+                        <option value="ICN">ICN - 首尔( 仁川)</option>
+                        <option value="GMP">GMP - 首尔( 金浦)</option>
+                        <option value="PUS">PUS - 釜山</option>
+                        <option value="CJU">CJU - 济州</option>
+                    </optgroup>
+                    <optgroup label="🇸🇬 新加坡">
+                        <option value="SIN">SIN - 新加坡</option>
+                    </optgroup>
+                    <optgroup label="🇹🇭 泰国">
+                        <option value="BKK">BKK - 曼谷( 素万那普)</option>
+                    </optgroup>
+                    <optgroup label="🇲🇾 马来西亚">
+                        <option value="KUL">KUL - 吉隆坡</option>
+                    </optgroup>
+                    <optgroup label="🇮🇩 印尼">
+                        <option value="CGK">CGK - 雅加达</option>
+                    </optgroup>
+                    <optgroup label="🇻🇳 越南">
+                        <option value="SGN">SGN - 胡志明市</option>
+                        <option value="HAN">HAN - 河内</option>
+                    </optgroup>
+                    <optgroup label="🇵🇭 菲律宾">
+                        <option value="MNL">MNL - 马尼拉</option>
+                    </optgroup>
+                    <optgroup label="🇦🇺 澳大利亚">
+                        <option value="SYD">SYD - 悉尼</option>
+                        <option value="MEL">MEL - 墨尔本</option>
+                        <option value="BNE">BNE - 布里斯班</option>
+                        <option value="PER">PER - 珀斯</option>
+                        <option value="ADL">ADL - 阿德莱德</option>
+                    </optgroup>
+                    <optgroup label="🇳🇿 新西兰">
+                        <option value="AKL">AKL - 奥克兰</option>
+                        <option value="WLG">WLG - 惠灵顿</option>
+                        <option value="CHC">CHC - 基督城</option>
+                    </optgroup>
+                    <optgroup label="🇺🇸 美国">
+                        <option value="JFK">JFK - 纽约( 肯尼迪)</option>
+                        <option value="LAX">LAX - 洛杉矶</option>
+                        <option value="SFO">SFO - 旧金山</option>
+                        <option value="ORD">ORD - 芝加哥( 奥黑尔)</option>
+                        <option value="MIA">MIA - 迈阿密</option>
+                        <option value="SEA">SEA - 西雅图</option>
+                        <option value="LAS">LAS - 拉斯维加斯</option>
+                        <option value="BOS">BOS - 波士顿</option>
+                        <option value="ATL">ATL - 亚特兰大</option>
+                        <option value="DFW">DFW - 达拉斯</option>
+                        <option value="DEN">DEN - 丹佛</option>
+                        <option value="PHX">PHX - 凤凰城</option>
+                        <option value="IAH">IAH - 休斯顿</option>
+                        <option value="EWR">EWR - 纽瓦克</option>
+                        <option value="MSP">MSP - 明尼阿波利斯</option>
+                        <option value="DTW">DTW - 底特律</option>
+                        <option value="PHL">PHL - 费城</option>
+                        <option value="SLC">SLC - 盐湖城</option>
+                        <option value="SAN">SAN - 圣地亚哥</option>
+                        <option value="PDX">PDX - 波特兰</option>
+                        <option value="HNL">HNL - 火奴鲁鲁</option>
+                    </optgroup>
+                    <optgroup label="🇨🇦 加拿大">
+                        <option value="YYZ">YYZ - 多伦多</option>
+                        <option value="YVR">YVR - 温哥华</option>
+                        <option value="YUL">YUL - 蒙特利尔</option>
+                        <option value="YYC">YYC - 卡尔加里</option>
+                    </optgroup>
+                    <optgroup label="🇬🇧 英国">
+                        <option value="LHR">LHR - 伦敦( 希思罗)</option>
+                        <option value="LGW">LGW - 伦敦( 盖特威克)</option>
+                        <option value="STN">STN - 伦敦( 斯坦斯特德)</option>
+                        <option value="MAN">MAN - 曼彻斯特</option>
+                        <option value="EDI">EDI - 爱丁堡</option>
+                    </optgroup>
+                    <optgroup label="🇪🇺 欧洲">
+                        <option value="CDG">CDG - 巴黎( 戴高乐)</option>
+                        <option value="AMS">AMS - 阿姆斯特丹</option>
+                        <option value="FRA">FRA - 法兰克福</option>
+                        <option value="MUC">MUC - 慕尼黑</option>
+                        <option value="BER">BER - 柏林</option>
+                        <option value="ZRH">ZRH - 苏黎世</option>
+                        <option value="FCO">FCO - 罗马</option>
+                        <option value="MXP">MXP - 米兰( 马尔彭萨)</option>
+                        <option value="BCN">BCN - 巴塞罗那</option>
+                        <option value="MAD">MAD - 马德里</option>
+                        <option value="ARN">ARN - 斯德哥尔摩</option>
+                        <option value="OSL">OSL - 奥斯陆</option>
+                        <option value="CPH">CPH - 哥本哈根</option>
+                        <option value="HEL">HEL - 赫尔辛基</option>
+                        <option value="DUB">DUB - 都柏林</option>
+                        <option value="LIS">LIS - 里斯本</option>
+                        <option value="ATH">ATH - 雅典</option>
+                        <option value="VIE">VIE - 维也纳</option>
+                        <option value="PRG">PRG - 布拉格</option>
+                        <option value="WAW">WAW - 华沙</option>
+                        <option value="BUD">BUD - 布达佩斯</option>
+                    </optgroup>
+                    <optgroup label="🇦🇪 中东">
+                        <option value="DXB">DXB - 迪拜</option>
+                        <option value="AUH">AUH - 阿布扎比</option>
+                        <option value="DOH">DOH - 多哈</option>
+                        <option value="RUH">RUH - 利雅得</option>
+                        <option value="JED">JED - 吉达</option>
+                        <option value="TLV">TLV - 特拉维夫</option>
+                    </optgroup>
+                    <optgroup label="🇮🇳 印度">
+                        <option value="DEL">DEL - 新德里</option>
+                        <option value="BOM">BOM - 孟买</option>
+                        <option value="BLR">BLR - 班加罗尔</option>
+                        <option value="MAA">MAA - 金奈</option>
+                    </optgroup>
+                    <optgroup label="🇿🇦 非洲">
+                        <option value="JNB">JNB - 约翰内斯堡</option>
+                        <option value="CPT">CPT - 开普敦</option>
+                        <option value="CAI">CAI - 开罗</option>
+                        <option value="NBO">NBO - 内罗毕</option>
+                    </optgroup>
+                    <optgroup label="🇧🇷 南美">
+                        <option value="GRU">GRU - 圣保罗</option>
+                        <option value="GIG">GIG - 里约热内卢</option>
+                        <option value="EZE">EZE - 布宜诺斯艾利斯</option>
+                        <option value="SCL">SCL - 圣地亚哥</option>
+                        <option value="BOG">BOG - 波哥大</option>
+                        <option value="LIM">LIM - 利马</option>
+                    </optgroup>
                 </select>
             </div>
             
