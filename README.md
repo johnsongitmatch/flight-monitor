@@ -1,6 +1,6 @@
-# ✈️ Flight Monitor - 机票价格监控
+# ✈️ Flight Monitor - 机票价格查询
 
-实时监控机票价格，每日邮件提醒
+实时查询机票价格，每日邮件提醒
 
 ## 🌐 在线访问
 
@@ -11,57 +11,81 @@
 ## ✨ 功能
 
 - ✅ 全球 150+ 机场选择
-- ✅ 每日价格监控
-- ✅ 邮件提醒 (开发中)
-- ✅ Google Flights 跳转查询
+- ✅ 一键跳转到 Google Flights 查看实时价格
+- ✅ 本地保存监控记录
+- ✅ **每日邮件提醒**（需配置）
 
-## 🚀 部署
+## 🚀 快速使用
 
-### 方式 1: Cloudflare Pages (自动)
+1. 打开 https://flight-monitor-af3.pages.dev
+2. 选择出发地和目的地
+3. 填写天数和邮箱
+4. 点击"开始监控" → 自动跳转到 Google Flights
 
-推送代码到 GitHub 后自动部署
+## 📧 邮件提醒设置
 
-```bash
-git add .
-git commit -m "feat: your changes"
-git push
-```
-
-### 方式 2: 本地预览
+### 1. 获取 Resend API Key（免费 100 封/天）
 
 ```bash
-# 安装 wrangler
-npm install -g wrangler
-
-# 本地预览
-npx wrangler pages dev dist
-
-# 部署到 Cloudflare Pages
-npx wrangler pages deploy dist --project-name=flight-monitor
+# 注册 https://resend.com 获取免费 API Key
+export RESEND_API_KEY="re_123456789"
 ```
+
+### 2. 设置每日定时发送
+
+```bash
+cd /home/ubuntu/clawd/flight-monitor-site
+
+# 设置 cron 每天 10:00 发送
+./setup-email-cron.sh setup
+
+# 测试发送
+./setup-email-cron.sh test
+
+# 查看日志
+./setup-email-cron.sh log
+```
+
+### 3. 邮件预览
+
+邮件包含：
+- 航线信息
+- Google Flights 实时价格链接
+- 发送时间
 
 ## 📁 项目结构
 
 ```
 flight-monitor-site/
 ├── index.html              # 前端页面
-├── functions/
-│   └── api/
-│       └── monitor.js      # Pages Function API
-├── wrangler.toml           # Cloudflare 配置
+├── daily-email.js          # 邮件发送脚本
+├── setup-email-cron.sh     # Cron 设置脚本
 └── README.md
 ```
 
-## 🔧 配置
+## 🔧 命令速查
 
-API 使用 Upstash Redis 存储监控数据：
-- Endpoint: happy-bonefish-61286.upstash.io
-- Token: 已配置在 wrangler.toml
+| 命令 | 说明 |
+|------|------|
+| `./setup-email-cron.sh setup` | 设置每日 10:00 自动发送 |
+| `./setup-email-cron.sh test` | 测试发送邮件 |
+| `./setup-email-cron.sh log` | 查看发送日志 |
+| `./setup-email-cron.sh status` | 查看 cron 状态 |
+| `./setup-email-cron.sh remove` | 移除定时任务 |
 
-## 📧 邮件功能
+## 📊 机场覆盖
 
-邮件通知功能开发中...
+| 地区 | 数量 |
+|------|------|
+| 🇨🇳 中国 | 20+ |
+| 🇭🇰🇲🇴🇹🇼 港澳台 | 3 |
+| 🇯🇵🇰🇷 日韩 | 13 |
+| 🇸🇬🇹🇭🇲🇾🇮🇩🇻🇳🇵🇭 东南亚 | 10+ |
+| 🇦🇺🇳🇿 澳新 | 8 |
+| 🇺🇸🇨🇦 北美 | 25+ |
+| 🇬🇧🇪🇺 欧洲 | 25+ |
+| 🇦🇪🇮🇳🇿🇦 其他 | 15+ |
 
 ## 🔗 相关项目
 
-- **Backend Workers**: https://github.com/johnsongitmatch/flight-monitor-worker
+- **GitHub**: https://github.com/johnsongitmatch/flight-monitor
