@@ -1,0 +1,17 @@
+{
+  "name": "flight-monitor",
+  "main": "functions/api/monitor.js",
+  "compatibility_date": "2024-01-01",
+  "pages": {
+    "output_directory": "dist",
+    "binding_dictionary": []
+  },
+  "vars": {
+    "UPSTASH_REDIS_TOKEN": "YOUR_TOKEN_HERE"
+  },
+  "secrets": {
+    "UPSTASH_REDIS_TOKEN": {
+      "parser": "text"
+    }
+  }
+}

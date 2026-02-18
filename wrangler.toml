@@ -1,0 +1,6 @@
+# Cloudflare Pages Configuration
+name = "flight-monitor"
+compatibility_date = "2024-01-01"
+
+[vars]
+UPSTASH_REDIS_TOKEN = "Ae9mAAIncDE5YWI5Nzk3NTc4OTE0NmNjOWYxMWVhMGE0MGE5YzQ3OXAxNjEyODY"
