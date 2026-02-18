@@ -150,6 +150,25 @@ async function main() {
     console.log('时间:', new Date().toLocaleString('zh-CN'));
     console.log('='.repeat(50));
     
+    // 测试模式（无 Redis）
+    if (process.argv.includes('--mock')) {
+        console.log('\n🧪 测试模式');
+        const mockMonitors = [
+            { from: 'AKL', to: 'PEK', daysMin: 28, daysMax: 38, email: 'test@example.com' },
+            { from: 'SYD', to: 'PVG', daysMin: 14, daysMax: 21, email: 'user@example.com' }
+        ];
+        
+        for (const monitor of mockMonitors) {
+            const searchUrl = generateSearchUrl(monitor.from, monitor.to);
+            await sendEmail(monitor, searchUrl);
+            await new Promise(r => setTimeout(r, 1000));
+        }
+        
+        console.log('\n✅ 测试完成！');
+        console.log('要启用真实邮件发送，请设置 RESEND_API_KEY 环境变量');
+        return;
+    }
+    
     // 获取监控列表
     console.log('\n📊 正在获取监控列表...');
     const monitors = await getMonitors();
